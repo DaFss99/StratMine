@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StratMine | Inteligência Mineral</title>
+    <style>
+        /* --- Estilos da Seção Equipe (6 círculos) --- */
+#equipe {
+    position: relative; /* Necessário para o overlay */
+}
+
+.team-container {
+    transition: opacity 0.4s ease; /* Transição suave da opacidade do fundo */
+}
+
+/* Classe ativada pelo JS para dar opacidade 50% ao fundo */
+.team-container.dimmed {
+    opacity: 0.5;
+    pointer-events: none; /* Impede cliques no fundo enquanto o detalhe está aberto */
+}
+
+.team-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.member-circle {
+    text-align: center;
+    cursor: pointer;
+    width: 150px; /* Largura do contêiner de cada pessoa */
+    transition: transform 0.2s;
+}
+
+.member-circle:hover {
+    transform: scale(1.05); /* Pequeno efeito de zoom no hover */
+}
+
+.member-circle img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* Faz o círculo */
+    object-fit: cover; /* Garante que a foto não distorça */
+    border: 3px solid #eee;
+    margin-bottom: 10px;
+    transition: border-color 0.3s;
+}
+
+.member-circle:hover img {
+    border-color: var(--psg-blue); /* Borda fica azul no hover */
+}
+
+.member-circle p {
+    font-weight: bold;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* --- Estilos do Overlay de Detalhes (O painel expansível) --- */
+.member-detail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7); /* Fundo escuro atrás do painel */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* Acima de tudo, inclusive do menu fixed */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s;
+}
+
+/* Classe ativada pelo JS para mostrar o overlay */
+.member-detail-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.detail-content {
+    display: flex;
+    background-color: white;
+    width: 80%;
+    max-width: 800px;
+    height: 400px;
+    border-radius: 15px;
+    overflow: hidden; /* Garante que os cantos arredondados funcionem nas colunas */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: scale(0.8);
+    transition: transform 0.4s;
+}
+
+/* Efeito de zoom-in quando o painel aparece */
+.member-detail-overlay.active .detail-content {
+    transform: scale(1);
+}
+
+/* Coluna da Foto (Esquerda) */
+.detail-photo-col {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+}
+
+.detail-photo-col img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px; /* Foto maior, cantos arredondados, não círculo */
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Coluna do Texto (Direita) - Azul PSG */
+.detail-text-col {
+    flex: 1.2;
+    background-color: #001C3F; /* Azul PSG (#001C3F) */
+    color: white; /* Letras brancas */
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.detail-text-col h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+    padding-bottom: 10px;
+}
+
+.detail-text-col p {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Botão Fechar */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 2100;
+}
+
+.close-btn:hover {
+    color: #bbb;
+}
+
+/* Responsividade para o overlay (Celular) */
+@media (max-width: 768px) {
+    .detail-content {
+        flex-direction: column;
+        height: auto;
+        width: 90%;
+    }
+    .detail-photo-col {
+        padding: 10px;
+    }
+    .detail-photo-col img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%; /* Volta a ser círculo no celular pra economizar espaço */
+    }
+    .detail-text-col {
+        padding: 20px;
+        text-align: center;
+    }
+    .detail-text-col h3 {
+        font-size: 1.5rem;
+    }
+}
+        /* Estilos Gerais e Cores (PSG: #001C3F) */
+        :root {
+            --psg-blue: #001C3F;
+            --psg-red: #E30613;
+            --white: #ffffff;
+            --gray: #f4f4f4;
+            --transition-speed: 0.5s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--white);
+            color: #333;
+        }
+
+        /* Menu Superior */
+        nav {
+            background-color: var(--psg-blue);
+            height: 60px; /* aprox 3cm dependendo da tela */
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            color: var(--white);
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #aaa;
+        }
+
+        /* Seletor de Idiomas (Bandeiras) */
+        .lang-selector {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .lang-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--psg-blue);
+            padding: 10px;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .lang-selector:hover .lang-dropdown {
+            display: block;
+        }
+
+        .flag {
+            width: 25px;
+            height: 18px;
+            display: block;
+            margin: 5px 0;
+        }
+
+                /* Seção Hero (Imagem + Frase) */
+        #home {
+            height: 80vh;
+            margin-top: 60px;
+            /* O linear-gradient faz a transparência do lado direito que você pediu */
+            background: linear-gradient(to right, rgba(0,0,0,0.1) 30%, rgba(255,255,255,0.7) 100%), 
+                        url('img/minimalist.png') left/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10%;
+        }
+
+        .hero-text {
+            max-width: 400px;
+            text-align: right;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            color: var(--psg-blue);
+            background: rgba(255, 255, 255, 0.4);
+            padding: 20px;
+            border-right: 5px solid var(--psg-blue);
+        }
+
+        /* Tópicos com Efeito de Foco/Opacidade */
+        section {
+            padding: 100px 10%;
+            min-height: 600px;
+            transition: opacity var(--transition-speed);
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Classe para diminuir opacidade quando não está no foco (via JS) */
+        .out-of-focus {
+            opacity: 0.4;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--psg-blue);
+        }
+
+        .content-box {
+            background: var(--gray);
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        /* Footer simples */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--psg-blue);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#home" class="logo">STRATMINE</a>
+        <ul class="nav-links">
+            <li><a href="javascript:location.reload();">Home</a></li>
+            <li><a href="#quem-somos">Quem Somos</a></li>
+            <li><a href="#valores">Missão e Valores</a></li>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#portifolio">Portfólio</a></li>
+            <li><a href="#nossa-equipe">Nossa Equipe</a></li>
+            <li><a href="#contato">Contato</a></li>
+            <li class="lang-selector">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg" class="flag" alt="PT">
+                <div class="lang-dropdown">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" class="flag" alt="EN">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg" class="flag" alt="ES">
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <header id="home">
+        <div class="hero-text">
+            <h1>INSIRA AQUI SUA FRASE DE EFEITO</h1>
+        </div>
+    </header>
+
+    <section id="quem-somos">
+        <h2>Quem Somos</h2>
+        <div class="content-box" style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap;">
+            
+            <div style="flex: 1; min-width: 300px;">
+                <img src="img/quem_somos.jpg" alt="Equipe StratMine" 
+                    style="width: 100%; border-radius: 12px; box-shadow: 5px 5px 15px rgba(0,0,0,0.1);">
+            </div>
+
+            <div style="flex: 1.5; min-width: 300px;">
+                <p style="font-size: 1.1rem; margin-bottom: 15px;">
+                    A <strong>StratMine</strong> surgiu da união entre ... 
+                    Identificamos que o setor mineral brasileiro possui dados valiosos, mas muitas vezes inacessíveis pela complexidade.
+                </p>
+                <p>
+                    Nossa missão é democratizar o acesso à inteligência mineral, permitindo que mineradoras e investidores 
+                    visualizem o futuro do mercado através de nossos mapas estratégicos.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section id="valores">
+        <h2>Missão, Visão e Valores</h2>
+        <div class="content-box">
+            <p><strong>Missão:</strong> Transformar dados brutos em inteligência estratégica.<br>
+               <strong>Visão:</strong> Ser a principal plataforma de suporte regulatório e de mercado na mineração brasileira.</p>
+        </div>
+    </section>
+
+    <section id="servicos">
+        <h2>Serviços Oferecidos</h2>
+        <div class="content-box">
+            <ul>
+                <li>Tratamento de dados públicos (ANM)</li>
+                <li>Geração de Mapas Estratégicos</li>
+                <li>Análise de Tendências de Mercado</li>
+                <li>Monitoramento Regulatório</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="portifolio">
+        <h2>Portfólio</h2>
+        <div class="content-box">
+            <p>Exemplos de Dashboards, relatórios e cases de sucesso da StratMine.</p>
+        </div>
+    </section>
+
+<section id="nossa-equipe">
+    <h2>Nossa Equipe</h2>
+    
+    <div class="team-container" id="teamContainer">
+        
+        <div class="team-grid">
+            <div class="member-circle" onclick="showMemberDetail(1)">
+                <img src="img/foto1.jpg" alt="Dáfne Vianei">
+                <p>Dáfne Vianei</p>
+            </div>
+            <div class="member-circle" onclick="showMemberDetail(2)">
+                <img src="img/foto2.jpg" alt="Nome Sobrenome 2">
+                <p>Nome 2</p>
+            </div>
+            <div class="member-circle" onclick="showMemberDetail(3)">
+                <img src="img/foto3.jpg" alt="Nome Sobrenome 3">
+                <p>Nome 3</p>
+            </div>
+            <div class="member-circle" onclick="showMemberDetail(4)">
+                <img src="img/foto4.jpg" alt="Nome Sobrenome 4">
+                <p>Nome 4</p>
+            </div>
+            <div class="member-circle" onclick="showMemberDetail(5)">
+                <img src="img/foto5.jpg" alt="Nome Sobrenome 5">
+                <p>Nome 5</p>
+            </div>
+            <div class="member-circle" onclick="showMemberDetail(6)">
+                <img src="img/foto6.jpg" alt="Nome Sobrenome 6">
+                <p>Nome 6</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="member-detail-overlay" id="memberDetailOverlay">
+        <span class="close-btn" onclick="hideMemberDetail()">&times;</span>
+        
+        <div class="detail-content">
+            <div class="detail-photo-col">
+                <img src="" alt="" id="detailPhoto">
+            </div>
+            <div class="detail-text-col">
+                <h3 id="detailName">Nome do Membro</h3>
+                <p id="detailDescription">Descrição das atribuições e bio da pessoa.</p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    // Dados da equipe (Mais fácil de gerenciar aqui do que criar 6 overlays no HTML)
+    const teamData = {
+        1: { name: "Dáfne Vianei", photo: "img/foto1.jpg", desc: "Cargo/Atribuição 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+        2: { name: "Nome Sobrenome 2", photo: "img/foto2.jpg", desc: "Cargo/Atribuição 2. Descrição detalhada das atividades desta pessoa na StratMine." },
+        3: { name: "Nome Sobrenome 3", photo: "img/foto3.jpg", desc: "Cargo/Atribuição 3. Descrição detalhada das atividades desta pessoa na StratMine." },
+        4: { name: "Nome Sobrenome 4", photo: "img/foto4.jpg", desc: "Cargo/Atribuição 4. Descrição detalhada das atividades desta pessoa na StratMine." },
+        5: { name: "Nome Sobrenome 5", photo: "img/foto5.jpg", desc: "Cargo/Atribuição 5. Descrição detalhada das atividades desta pessoa na StratMine." },
+        6: { name: "Nome Sobrenome 6", photo: "img/foto6.jpg", desc: "Cargo/Atribuição 6. Descrição detalhada das atividades desta pessoa na StratMine." }
+    };
+
+    const container = document.getElementById('teamContainer');
+    const overlay = document.getElementById('memberDetailOverlay');
+    const dPhoto = document.getElementById('detailPhoto');
+    const dName = document.getElementById('detailName');
+    const dDesc = document.getElementById('detailDescription');
+
+    function showMemberDetail(id) {
+        const data = teamData[id];
+        if(!data) return;
+
+        // Preenche os dados no overlay
+        dPhoto.src = data.photo;
+        dPhoto.alt = data.name;
+        dName.innerText = data.name;
+        dDesc.innerText = data.desc;
+
+        // Aplica os efeitos visuais
+        container.classList.add('dimmed'); // Escurece o fundo
+        overlay.classList.add('active');   // Mostra o painel
+    }
+
+    function hideMemberDetail() {
+        // Remove os efeitos visuais
+        container.classList.remove('dimmed');
+        overlay.classList.remove('active');
+    }
+
+    // Fecha ao clicar fora do conteúdo azul (no fundo escuro)
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            hideMemberDetail();
+        }
+    });
+</script>
+
+    <section id="contato">
+        <h2>Contate-nos</h2>
+        <div class="content-box">
+            <p>Email: contato@stratMine.com.br</p>
+            <p>Telefone: (31) 9999-9999</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 StratMine - Inteligência em Dados Minerários</p>
+    </footer>
+
+    <script>
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            let current = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            sections.forEach(section => {
+                section.classList.remove('out-of-focus');
+                if (section.getAttribute('id') !== current) {
+                    section.classList.add('out-of-focus');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
