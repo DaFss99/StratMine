@@ -1,0 +1,38 @@
+# --- PASTAS DE PROJETO ---
+# Ignorar a pasta de imagens se você não quiser subir fotos pesadas (como você já fez)
+
+
+
+
+# Ignorar pastas de ambiente virtual do Python (essencial se usar bibliotecas como pandas/numpy)
+venv/
+env/
+__pycache__/
+
+# --- DADOS E BIOINFORMÁTICA (Arquivos Pesados) ---
+# Ignorar bases de dados brutas da ANM que podem ser muito grandes para o GitHub
+*.csv
+*.xlsx
+*.zip
+*.json
+# Se você rodar ferramentas de bioinformática na mesma pasta:
+*.fasta
+*.fastq
+*.bam
+*.sam
+
+# --- ARQUIVOS DE SISTEMA (Invisíveis que o PC cria sozinho) ---
+# Arquivos de visualização do Windows e Mac que poluem o repositório
+.DS_Store
+Thumbs.db
+
+# --- SEGURANÇA E CONFIGURAÇÃO ---
+# Arquivos que guardam senhas ou chaves de acesso a bancos de dados
+.env
+config.txt
+credentials.json
+
+# --- LOGS E RESULTADOS TEMPORÁRIOS ---
+*.log
+tmp/
+dist/
