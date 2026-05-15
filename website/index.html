@@ -6,6 +6,8 @@
     <title>StratMine | Inteligência Mineral</title>
     <style>
         /* --- Estilos da Seção Equipe (6 círculos) --- */
+
+@import url('https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@300;400;700&display=swap');
 #equipe {
     position: relative; /* Necessário para o overlay */
 }
@@ -16,7 +18,7 @@
 
 /* Classe ativada pelo JS para dar opacidade 50% ao fundo */
 .team-container.dimmed {
-    opacity: 0.5;
+    opacity: 0.4;
     pointer-events: none; /* Impede cliques no fundo enquanto o detalhe está aberto */
 }
 
@@ -28,12 +30,35 @@
     padding: 20px 0;
 }
 
+
+/* Estilo para o nome */
+
+/* Ajuste no container do círculo para centralizar tudo */
 .member-circle {
     text-align: center;
     cursor: pointer;
-    width: 150px; /* Largura do contêiner de cada pessoa */
-    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+.member-circle .member-name {
+    font-size: 1.2rem;       /* Aumenta o nome (ajuste conforme o gosto) */
+    font-weight: bold;      /* Deixa em negrito para destacar */
+    margin-bottom: 2px;     /* Reduz o espaço para o cargo */
+    color: #f0f6ff;            /* Cor do nome */
+    display: block;
+}
+
+/* Estilo para o cargo */
+.member-circle .member-role {
+    font-size: 0.9rem;       /* Fonte menor que a do nome */
+    color: #f0f6ff;            /* Cor um pouco mais clara/suave */
+    margin-top: 0;          /* Remove espaço extra no topo */
+    font-style: italic;     /* Opcional: deixa o cargo em itálico */
+    display: block;
+}
+
 
 .member-circle:hover {
     transform: scale(1.05); /* Pequeno efeito de zoom no hover */
@@ -57,6 +82,31 @@
     font-weight: bold;
     color: #333;
     font-size: 0.95rem;
+}
+
+/* Isso tira o negrito de tudo que cair dentro da descrição do overlay */
+#detailDescription {
+    font-weight: normal !important;
+    line-height: 1.6;
+}
+
+/* Isso estiliza especificamente o Cargo que o JS criou */
+.detail-role {
+    display: block;        /* Faz o cargo ocupar a linha dele */
+    font-weight: bold;
+    color: #ffffff;        /* Azul StratMine (ou a cor que preferir) */
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 1px;   /* Espaço entre o cargo e a bio */
+}
+
+/* Isso estiliza especificamente a Bio que o JS criou */
+.detail-bio {
+    display: block;
+    font-weight: normal;
+    font-size: 1rem;
+    color: #d3daff;
+    text-align: justify;
 }
 
 /* --- Estilos do Overlay de Detalhes (O painel expansível) --- */
@@ -201,8 +251,8 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            background-color: var(--white);
-            color: #333;
+            background-color: var(--psg-blue);
+            color: #ffffff;
         }
 
         /* Menu Superior */
@@ -220,12 +270,32 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
+        /* Estilo da Logo à Esquerda */
         .logo {
-            color: var(--white);
+            font-family: 'Michroma', sans-serif; /* Fonte futurista/geométrica */
+            color: #ffffff;
             font-weight: bold;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             text-decoration: none;
-            cursor: pointer;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #00d4ff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; /* Efeito de degradê no texto */
+        }
+
+        /* Deixando a Frase de Efeito mais elegante (Glassmorphism) */
+        .hero-text h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 300; /* Letra mais fina para ficar elegante */
+            color: #001C3F;
+            background: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(10px); /* Efeito de vidro fosco */
+            padding: 30px 50px;
+            border-right: 10px solid var(--psg-blue);
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 700px;
         }
 
         .nav-links {
@@ -296,13 +366,6 @@
             text-align: right;
         }
 
-        .hero-text h1 {
-            font-size: 2.5rem;
-            color: var(--psg-blue);
-            background: rgba(255, 255, 255, 0.4);
-            padding: 20px;
-            border-right: 5px solid var(--psg-blue);
-        }
 
         /* Tópicos com Efeito de Foco/Opacidade */
         section {
@@ -310,6 +373,70 @@
             min-height: 600px;
             transition: opacity var(--transition-speed);
             border-bottom: 1px solid #eee;
+        }
+        /* Valores e missão */
+        #valores {
+            position: relative;
+            padding: 60px 20px;
+            text-align: center;
+            overflow: hidden;
+            color: #001C3F; /* Cor do texto para contrastar com o fundo escuro */
+        }
+
+        /* Camada da Imagem de Fundo */
+        .valores-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('img/mission.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5; /* Aqui você controla a opacidade da imagem (0.1 a 1.0) */
+            z-index: -1; /* Joga a imagem para trás de tudo */
+            background-attachment: fixed; /* Opcional: dá um efeito de parallax */
+        }
+
+        /* Container dos 3 Boxes */
+        .boxes-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Estilo dos Boxes Transparentes */
+        .value-box {
+            background: rgba(255, 255, 255, 0.1); /* Fundo branco bem transparente */
+            backdrop-filter: blur(10px); /* Efeito de vidro fosco (Glassmorphism) */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            flex: 1;
+            min-width: 280px;
+            transition: transform 0.3s ease;
+        }
+
+        .value-box:hover {
+            transform: translateY(-10px); /* Efeito de flutuar ao passar o mouse */
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .value-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: whitesmoke;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5)
+        }
+
+        .value-box p {
+            color: #ffffff !important; /* Branco puro para o corpo do texto */
+            font-weight: 500;         /* Um pouco mais de "corpo" na fonte */
+            line-height: 1.5;
+            font-size: 1.2rem;
         }
 
         /* Classe para diminuir opacidade quando não está no foco (via JS) */
@@ -320,14 +447,30 @@
         h2 {
             font-size: 2rem;
             margin-bottom: 20px;
-            color: var(--psg-blue);
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5)
         }
 
         .content-box {
-            background: var(--gray);
-            padding: 30px;
-            border-radius: 8px;
-        }
+    /* Um azul marinho profundo que combina com o fundo do site */
+    background: linear-gradient(145deg, #0f223d, #0a192f); 
+    padding: 50px;
+    border-radius: 15px; /* Bordas um pouco mais arredondadas para um ar moderno */
+    
+    /* Efeito de "saltar": uma borda fina e uma sombra suave */
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    
+    /* Garante que todo o texto dentro deste box seja branco/claro */
+    color: #e6f1ff; 
+    
+    /* Organização interna */
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
 
         /* Footer simples */
         footer {
@@ -350,11 +493,6 @@
             <li><a href="#portifolio">Portfólio</a></li>
             <li><a href="#nossa-equipe">Nossa Equipe</a></li>
             <li><a href="#contato">Contato</a></li>
-            <li class="lang-selector">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg" class="flag" alt="PT">
-                <div class="lang-dropdown">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" class="flag" alt="EN">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg" class="flag" alt="ES">
                 </div>
             </li>
         </ul>
@@ -362,9 +500,10 @@
 
     <header id="home">
         <div class="hero-text">
-            <h1>INSIRA AQUI SUA FRASE DE EFEITO</h1>
+            <h1>A ciência de dados a serviço da mineração do futuro.</h1>
         </div>
     </header>
+
 
     <section id="quem-somos">
         <h2>Quem Somos</h2>
@@ -372,29 +511,42 @@
             
             <div style="flex: 1; min-width: 300px;">
                 <img src="img/quem_somos.jpg" alt="Equipe StratMine" 
-                    style="width: 100%; border-radius: 12px; box-shadow: 5px 5px 15px rgba(0,0,0,0.1);">
+                    style="width: 100%; border-radius: 12px; box-shadow: 5px 5px 15px rgba(238, 228, 228, 0.1);">
             </div>
 
             <div style="flex: 1.5; min-width: 300px;">
-                <p style="font-size: 1.1rem; margin-bottom: 15px;">
-                    A <strong>StratMine</strong> surgiu da união entre ... 
-                    Identificamos que o setor mineral brasileiro possui dados valiosos, mas muitas vezes inacessíveis pela complexidade.
+                <p style="font-size: 1.rem; margin-bottom: 15px;">
+                    A <strong>StratMine</strong> nasce na intersecção entre a ciência de dados avançada e a experiência prática no setor mineral. Somos uma assessoria estratégica dedicada a transformar o vasto e complexo volume de dados públicos e privados em inteligência acionável.
                 </p>
                 <p>
-                    Nossa missão é democratizar o acesso à inteligência mineral, permitindo que mineradoras e investidores 
-                    visualizem o futuro do mercado através de nossos mapas estratégicos.
+                    Diferente de consultorias tradicionais, utilizamos um modelo híbrido que combina o poder de processamento da inteligência de dados com a visão crítica de especialistas em áreas diversas área incluindo biologia, engenharia e direito. Nosso compromisso é com a segurança na tomada de decisão, garantindo que mineradoras operem com máxima eficiência, total conformidade regulatória e visão de futuro.
                 </p>
             </div>
 
         </div>
     </section>
 
-
     <section id="valores">
-        <h2>Missão, Visão e Valores</h2>
-        <div class="content-box">
-            <p><strong>Missão:</strong> Transformar dados brutos em inteligência estratégica.<br>
-               <strong>Visão:</strong> Ser a principal plataforma de suporte regulatório e de mercado na mineração brasileira.</p>
+        <div class="valores-background">
+            </div>
+        
+        <h2>Nossas Diretrizes</h2>
+        
+        <div class="boxes-container">
+            <div class="value-box">
+                <h3>Missão</h3>
+                <p>Prover clareza estratégica e segurança decisória para o setor mineral através da inteligência de dados, antecipando riscos e oportunidades.</p>
+            </div>
+
+            <div class="value-box">
+                <h3>Visão</h3>
+                <p>Ser a principal referência em assessoria de dados para o setor mineral brasileiro, simplificando a complexidade regulatória e operacional.</p>
+            </div>
+
+            <div class="value-box">
+                <h3>Valores</h3>
+                <p>Confidencialidade, Rigor Técnico, Inovação Sustentável, Agilidade Decisória e Transparência.</p>
+            </div>
         </div>
     </section>
 
@@ -410,12 +562,20 @@
         </div>
     </section>
 
+
     <section id="portifolio">
-        <h2>Portfólio</h2>
+        <h2>Portfólio de Inteligência</h2>
         <div class="content-box">
-            <p>Exemplos de Dashboards, relatórios e cases de sucesso da StratMine.</p>
+            <p>Os dados, obtidos por meio da Agência Nacional de Mineração (ANM), 
+                são referentes aos requerimentos de pesquisa e lavra registrados no Cadastro Mineiro.</p>
+            <br>
+            <a href="https://stratmine.streamlit.app/" target="_blank" class="btn-dash">
+                Abrir Dashboard Interativo
+            </a>
         </div>
     </section>
+
+
 
 <section id="nossa-equipe">
     <h2>Nossa Equipe</h2>
@@ -425,27 +585,33 @@
         <div class="team-grid">
             <div class="member-circle" onclick="showMemberDetail(1)">
                 <img src="img/foto1.jpg" alt="Dáfne Vianei">
-                <p>Dáfne Vianei</p>
+                <p class="member-name">Dáfne Vianei</p>
+                <p class="member-role">CTO & Data Intelligence</p>
             </div>
             <div class="member-circle" onclick="showMemberDetail(2)">
-                <img src="img/foto2.jpg" alt="Nome Sobrenome 2">
-                <p>Nome 2</p>
+                <img src="img/foto2.jpeg" alt="Alan Barbosa">
+                <p class="member-name">Alan Barbosa</p>
+                <p class="member-role">COO & Head de Novos Negócios</p>
             </div>
             <div class="member-circle" onclick="showMemberDetail(3)">
-                <img src="img/foto3.jpg" alt="Nome Sobrenome 3">
-                <p>Nome 3</p>
+                <img src="img/foto3.jpg" alt="Carolina Lima">
+                <p class="member-name">Carolina Lima</p>
+                <p class="member-role">Head of Business Development &<br>Innovation</p>
             </div>
             <div class="member-circle" onclick="showMemberDetail(4)">
-                <img src="img/foto4.jpg" alt="Nome Sobrenome 4">
-                <p>Nome 4</p>
+                <img src="img/foto4.jpg" alt="Juan Ariute">
+                <p class="member-name">Juan Ariute</p>
+                <p class="member-role">Head of Genomic Intelligence &<br>Data Engineering</p>
             </div>
             <div class="member-circle" onclick="showMemberDetail(5)">
-                <img src="img/foto5.jpg" alt="Nome Sobrenome 5">
-                <p>Nome 5</p>
+                <img src="img/foto5.jpeg" alt="Gabriela Luiza">
+                <p class="member-name">Gabriela Luiza</p>
+                <p class="member-role">Head of Circular Economy &<br>Strategic Decisions</p>
             </div>
             <div class="member-circle" onclick="showMemberDetail(6)">
-                <img src="img/foto6.jpg" alt="Nome Sobrenome 6">
-                <p>Nome 6</p>
+                <img src="img/foto6.jpeg" alt="Amanda Silveira">
+                <p class="member-name">Amanda Silveira</p>
+                <p class="member-role">Head de ESG & Compliance</p>
             </div>
         </div>
 
@@ -467,16 +633,64 @@
 
 </section>
 
+
 <script>
-    // Dados da equipe (Mais fácil de gerenciar aqui do que criar 6 overlays no HTML)
+    // Dados da equipe 
     const teamData = {
-        1: { name: "Dáfne Vianei", photo: "img/foto1.jpg", desc: "CTO & Head de Data Intelligence. Bióloga e Mestranda Bioinformática pela UFMG. Especialista no desenvolvimento de pipelines de dados e análise genômica. Na StratMine, lidera a arquitetura de dados e a automação de inteligência mineral, transformando bases complexas em insights estratégicos para a tomada de decisão." },
-        2: { name: "Alan Barbosa", photo: "img/foto2.jpeg", desc: "COO & Head de Novos Negócios. Biólogo e Mestrando em Inovação Tecnológica pela UFMG, com experiência internacional na Université Paris-Saclay e Genopole (França). Especialista em modelagem de biossistemas e ex-líder em projetos multidisciplinares. Atua na coordenação operacional e prospecção tecnológica da StratMine, conectando ciência e mercado." },
-        3: { name: "Carolina Lima", photo: "img/foto3.jpg", desc: "Cargo/Atribuição 3. descrição" },
-        4: { name: "Juan Ariute", photo: "img/foto4.jpg", desc: "Cargo/Atribuição 4. descrição" },
-        5: { name: "Gabriela Luiza", photo: "img/foto5.jpeg", desc: "Cargo/Atribuição 5. descrição" },
-        6: { name: "Amanda Silveira", photo: "img/foto6.jpeg", desc: "Head de ESG & Compliance. Mestranda em Inovação (UFMG) e especialista em Gestão Estratégica e Direito Mineral. Com sólida experiência no setor de mineração, une expertise técnica em regulatório ambiental com visão de sustentabilidade e governança social. Na StratMine, é responsável por garantir o alinhamento das operações aos mais altos padrões de ESG e gestão de stakeholders." }
-    };
+    1: { 
+        name: "Dáfne Vianei", 
+        role: "CTO & Head de Data Intelligence", 
+        photo: "img/foto1.jpg", 
+        desc: `Bióloga e Mestranda em Bioinformática pela UFMG. Especialista no desenvolvimento de pipelines de dados e análise genômica. 
+        Na StratMine, lidera a arquitetura de dados e a automação de inteligência mineral, 
+        transformando bases complexas em insights estratégicos para a tomada de decisão.` 
+    },
+    2: { 
+        name: "Alan Barbosa", 
+        role: "COO & Head de Novos Negócios", 
+        photo: "img/foto2.jpeg", 
+        desc: `Biólogo e Mestrando em Inovação Tecnológica pela UFMG, 
+        com experiência internacional na Université Paris-Saclay e Genopole (França). 
+        Especialista em modelagem de biossistemas e ex-líder em projetos multidisciplinares. 
+        Atua na coordenação operacional e prospecção tecnológica da StratMine, conectando ciência e mercado.`
+    },
+    3: { 
+        name: "Carolina Lima", 
+        role: "Head of Business Development & Innovation", 
+        photo: "img/foto3.jpg", 
+        desc: `Graduada em Química Tecnológica (UFMG), 
+        Especialista em ESG e Sustentabilidade (FGV) e mestranda em Inovação Tecnológica (UFMG). 
+        Com experiência na gestão de mais de 30 projetos no Escalab, 
+        atua na interface estratégica entre ciência, inovação e o 
+        desenvolvimento de novos negócios na StratMine.` 
+    },
+    4: { 
+        name: "Juan Ariute", 
+        role: "Head of Genomic Intelligence & Data Engineering", 
+        photo: "img/foto4.jpg", 
+        desc: `Bacharel em Biologia (UFPE), Mestre e Doutorando em Bioinformática pela UFMG. 
+        Especialista em genômica bacteriana com foco em fitopatógenos e probióticos. 
+        Na StratMine, aplica inteligência genômica para soluções biotecnológicas e engenharia de dados complexos.`
+    },
+    5: { 
+        name: "Gabriela Luiza", 
+        role: "Head of Circular Economy & Strategic Decisions", 
+        photo: "img/foto5.jpeg", 
+        desc: `Engenheira Química e técnica em química com foco em Engenharia de Inovação. 
+        Especialista em economia circular e tratamento de efluentes na mineração, atua na 
+        StratMine integrando soluções de sustentabilidade técnica às decisões comerciais e 
+        operacionais de alto impacto.` 
+    },
+    6: { 
+        name: "Amanda Silveira", 
+        role: "Head de ESG & Compliance", 
+        photo: "img/foto6.jpeg", 
+        desc: `Mestranda em Inovação (UFMG) e especialista em Gestão Estratégica e Direito Mineral. 
+        Com sólida experiência no setor de mineração, une expertise técnica em regulatório 
+        ambiental com visão de sustentabilidade e governança social, garantindo o alinhamento 
+        das operações da StratMine aos padrões globais de ESG.` 
+    }
+};
 
     const container = document.getElementById('teamContainer');
     const overlay = document.getElementById('memberDetailOverlay');
@@ -485,19 +699,22 @@
     const dDesc = document.getElementById('detailDescription');
 
     function showMemberDetail(id) {
-        const data = teamData[id];
-        if(!data) return;
+    const data = teamData[id]; // Mantive o seu "data"
+    if(!data) return;
 
-        // Preenche os dados no overlay
-        dPhoto.src = data.photo;
-        dPhoto.alt = data.name;
-        dName.innerText = data.name;
-        dDesc.innerText = data.desc;
+    dPhoto.src = data.photo;
+    dPhoto.alt = data.name;
+    dName.innerText = data.name;
 
-        // Aplica os efeitos visuais
-        container.classList.add('dimmed'); // Escurece o fundo
-        overlay.classList.add('active');   // Mostra o painel
-    }
+    // A mágica acontece aqui: injetando HTML para separar Cargo de Bio
+    dDesc.innerHTML = `
+        <span class="detail-role">${data.role}</span><br><br>
+        <span class="detail-bio">${data.desc}</span>
+    `;
+
+    container.classList.add('dimmed');
+    overlay.classList.add('active');
+}
 
     function hideMemberDetail() {
         // Remove os efeitos visuais
@@ -511,6 +728,7 @@
             hideMemberDetail();
         }
     });
+    
 </script>
 
     <section id="contato">
