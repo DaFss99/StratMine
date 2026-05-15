@@ -1,0 +1,418 @@
+=== LOG DE ESTRUTURA DOS BANCOS DE DATOS - STARTMINE ===
+Data do Log: 2026-05-02 15:02:05.894705
+
+--- 1. ALVARÁ DE PESQUISA ---
+         Superintendência     Processo  \
+0  Gerência Regional / GO  860212/2025   
+
+                      Tipo de requerimento               Fase Atual  \
+0  Requerimento de Autorização de Pesquisa  Autorização de Pesquisa   
+
+  CPF/CNPJ do titular                                            Titular  \
+0  00.114.258/0001-19  AREIALTO EXTRACAO COMERCIO E TRANSPORTES DE AR...   
+
+  Municipio(s) Substância(s)    Tipo(s) de Uso Situação  
+0      ORIZONA         AREIA  Construção civil      Sim  
+
+
+--- 1. PORTARIA DE LAVRA ---
+         Superintendência     Processo  \
+0  Gerência Regional / RO  005370/1964   
+
+                      Tipo de requerimento          Fase Atual  \
+0  Requerimento de Autorização de Pesquisa  Concessão de Lavra   
+
+  CPF/CNPJ do titular                                            Titular  \
+0  05.905.039/0001-71  MINERAÇÃO DA AMAZÔNIA COMÉRCIO E INDÚSTRIA S.A...   
+
+  Municipio(s) Substância(s)      Tipo(s) de Uso Situação  
+0  PORTO VELHO   CASSITERITA  Demais substâncias      Sim  
+
+
+--- 2. CFEM ARRECADAÇÃO ---
+    Ano  Mês  Processo  AnoDoProcesso Tipo_PF_PJ     CPF_CNPJ Substância  UF  \
+0  2022    1  880493.0         2011.0         PF  ***041224**     ARGILA  AM   
+
+   CodigoMunicipio  Município QuantidadeComercializada UnidadeDeMedida  \
+0          1304062  TABATINGA                   402,65             t     
+
+  ValorRecolhido          DataCriacao  
+0          62,81  2021-12-11 22:26:00  
+
+
+--- 2. CFEM DISTRIBUIÇÃO ---
+   NúmeroDeDistribuição   Ano  Mês       Ente SiglaEstado  CodigoEnte  \
+0                   244  2007    1  Município          AM   1302603.0   
+
+  NomeEnte TipoDistribuição Substância TipoAfetamento  \
+0   MANAUS         Produtor     ARGILA              -   
+
+                     Valor          DataCriacao  
+0  286,5070000000000000000  2006-08-31 00:00:00  
+
+
+--- 3. SIGBM (BARRAGENS) ---
+     ID                      Nome           Empreendedor        CPF_CNPJ  \
+0  8482  Dique - Pilha de Rejeito  EXTRATIVA MINERAL S/A  17174889000126   
+
+  Nome da mina  UF  Município         Latitude        Longitude  \
+0          NaN  MG  NOVA LIMA  -20°06'36.810''  -43°54'31.680''   
+
+   Posicionamento  ...  \
+0  Sul do Equador  ...   
+
+  Existe documento que ateste a segurança estrutural e a capacidade para contenção de rejeitos da Back Up Dam com ART  \
+0              Não se aplica a esse tipo de barragem                                                                    
+
+  Existe manual de operação da Back Up Dam  \
+0    Não se aplica a esse tipo de barragem   
+
+  A Back up Dam passou por auditoria de terceira parte  \
+0              Não se aplica a esse tipo de barragem     
+
+  A Back Up Dam garante a redução da área da mancha de inundação à jusante  \
+0              Não se aplica a esse tipo de barragem                         
+
+  Tipo de Back Up Dam quanto ao material de construção  \
+0              Não se aplica a esse tipo de barragem     
+
+         Tipo de fundação da Back Up Dam  \
+0  Não se aplica a esse tipo de barragem   
+
+         Vazão de projeto da Back Up Dam  \
+0  Não se aplica a esse tipo de barragem   
+
+       Método construtivo da Back Up Dam  \
+0  Não se aplica a esse tipo de barragem   
+
+      Tipo de auscultação da Back Up Dam Unidade Gestora  
+0  Não se aplica a esse tipo de barragem           CORBO  
+
+[1 rows x 124 columns]
+
+
+--- 4. DÍVIDA ATIVA ---
+      CPF_CNPJ             Interessado  NumeroDoProcesso  AnoDoProcesso  \
+0  ***526098**  LUIZ ARAUJO DOS SANTOS            968065           1993   
+
+                                             Receita       NumeroCDA  \
+0  Multa (Sistema de Autuação)  Taxa Anual por He...  19.016628.2009   
+
+  ValorAtualizado                DataAtualizacao       StatusDivida  
+0        39303.92  2024-08-07 12:42:45.100000000  Credito em Aberto  
+
+
+--- 5. SOPLE (LEILÃO) ---
+  ProcessoMinerario UnidadeFederacao            Municipio AreaPoligonal  \
+0       844001/2022          Alagoas  UNIÃO DOS PALMARES         21,54   
+
+  Substancia       UsoSubstancia RegimeDisponibilidade IndicaNominacao  \
+0      AREIA  ConstruÃ§Ã£o civil                   NaN             Sim   
+
+  FaseProcessoMinerario SituacaoProcesso                 SituacaoEstoque  \
+0         Licenciamento            Ativo  NÃ£o apta para Disponibilidade   
+
+  IndicaDisponibilizacaoEdital UltimaSituacaoEdital  
+0                         NÃ£o                  NaN  
+
+
+
+=== CHECKPOINT DE LIMPEZA GEOGRÁFICA (VALE DO LÍTIO) ===
+Executado em: 2026-05-02 15:02:29.062806
+
+--- Filtro Vale do Lítio: Cadastro (Alvará) ---
+Status: SUCESSO
+Registros ANTES: 108019
+Registros DEPOIS: 1604
+Redução: 98.52%
+
+--- Filtro Vale do Lítio: Cadastro (Lavra) ---
+Status: SUCESSO
+Registros ANTES: 15229
+Registros DEPOIS: 96
+Redução: 99.37%
+
+--- Filtro Vale do Lítio: Barragens (SIGBM) ---
+Status: SUCESSO
+Registros ANTES: 910
+Registros DEPOIS: 2
+Redução: 99.78%
+
+--- Filtro Vale do Lítio: CFEM Arrecadação ---
+Status: SUCESSO
+Registros ANTES: 358563
+Registros DEPOIS: 1732
+Redução: 99.52%
+
+--- Filtro Vale do Lítio: CFEM Distribuição ---
+Status: SUCESSO
+Registros ANTES: 1963078
+Registros DEPOIS: 16048
+Redução: 99.18%
+
+--- Filtro Vale do Lítio: SOPLE (Leilão) ---
+Status: SUCESSO
+Registros ANTES: 144402
+Registros DEPOIS: 890
+Redução: 99.38%
+
+=== ESTRUTURA APÓS A LIMPEZA PARA VALE DO LÍTIO - STARTMINE ===
+Data do Log: 2026-05-02 15:02:45.420500
+
+--- 1. ALVARÁ DE PESQUISA ---
+           Superintendência     Processo  \
+161  Gerência Regional / MG  832614/2010   
+
+                        Tipo de requerimento               Fase Atual  \
+161  Requerimento de Autorização de Pesquisa  Autorização de Pesquisa   
+
+    CPF/CNPJ do titular                   Titular Municipio(s) Substância(s)  \
+161  00.968.624/0001-05  MINERACAO ATLANTICA LTDA  MINAS NOVAS       GRANITO   
+
+    Tipo(s) de Uso Situação  
+161   Revestimento      Sim  
+
+
+--- 1. PORTARIA DE LAVRA ---
+            Superintendência     Processo  \
+1120  Gerência Regional / MG  806857/1972   
+
+                         Tipo de requerimento          Fase Atual  \
+1120  Requerimento de Autorização de Pesquisa  Concessão de Lavra   
+
+     CPF/CNPJ do titular                                        Titular  \
+1120  16.964.819/0001-09  ARQUEANA EMPREENDIMENTOS E PARTICIPACOES S.A.   
+
+     Municipio(s)                 Substância(s)  \
+1120      ARAÇUAÍ  FELDSPATO, PETALITA, QUARTZO   
+
+                                         Tipo(s) de Uso Situação  
+1120  Demais substâncias, Demais substâncias, Demais...      Sim  
+
+
+--- 2. CFEM ARRECADAÇÃO ---
+     Ano  Mês  Processo  AnoDoProcesso Tipo_PF_PJ        CPF_CNPJ Substância  \
+57  2022    1  833597.0         2006.0         PJ  01969976000130      AREIA   
+
+    UF  CodigoMunicipio      Município QuantidadeComercializada  \
+57  MG          3168606  TEÓFILO OTONI                      105   
+
+   UnidadeDeMedida ValorRecolhido          DataCriacao  
+57             t            125,7  2021-12-31 06:28:00  
+
+
+--- 2. CFEM DISTRIBUIÇÃO ---
+      NúmeroDeDistribuição   Ano  Mês       Ente SiglaEstado  CodigoEnte  \
+1164                   245  2007    2  Município          MG   3168606.0   
+
+           NomeEnte TipoDistribuição Substância TipoAfetamento  \
+1164  TEÓFILO OTONI         Produtor     ARGILA              -   
+
+                      Valor          DataCriacao  
+1164  8,8725000000000000000  2006-12-31 00:00:00  
+
+
+--- 3. SIGBM (BARRAGENS) ---
+     ID                      Nome           Empreendedor        CPF_CNPJ  \
+0  8482  Dique - Pilha de Rejeito  EXTRATIVA MINERAL S/A  17174889000126   
+
+  Nome da mina  UF  Município         Latitude        Longitude  \
+0          NaN  MG  NOVA LIMA  -20°06'36.810''  -43°54'31.680''   
+
+   Posicionamento  ...  \
+0  Sul do Equador  ...   
+
+  Existe documento que ateste a segurança estrutural e a capacidade para contenção de rejeitos da Back Up Dam com ART  \
+0              Não se aplica a esse tipo de barragem                                                                    
+
+  Existe manual de operação da Back Up Dam  \
+0    Não se aplica a esse tipo de barragem   
+
+  A Back up Dam passou por auditoria de terceira parte  \
+0              Não se aplica a esse tipo de barragem     
+
+  A Back Up Dam garante a redução da área da mancha de inundação à jusante  \
+0              Não se aplica a esse tipo de barragem                         
+
+  Tipo de Back Up Dam quanto ao material de construção  \
+0              Não se aplica a esse tipo de barragem     
+
+         Tipo de fundação da Back Up Dam  \
+0  Não se aplica a esse tipo de barragem   
+
+         Vazão de projeto da Back Up Dam  \
+0  Não se aplica a esse tipo de barragem   
+
+       Método construtivo da Back Up Dam  \
+0  Não se aplica a esse tipo de barragem   
+
+      Tipo de auscultação da Back Up Dam Unidade Gestora  
+0  Não se aplica a esse tipo de barragem           CORBO  
+
+[1 rows x 124 columns]
+
+
+--- 4. DÍVIDA ATIVA ---
+      CPF_CNPJ             Interessado  NumeroDoProcesso  AnoDoProcesso  \
+0  ***526098**  LUIZ ARAUJO DOS SANTOS            968065           1993   
+
+                                             Receita       NumeroCDA  \
+0  Multa (Sistema de Autuação)  Taxa Anual por He...  19.016628.2009   
+
+  ValorAtualizado                DataAtualizacao       StatusDivida  
+0        39303.92  2024-08-07 12:42:45.100000000  Credito em Aberto  
+
+
+--- 5. SOPLE (LEILÃO) ---
+  ProcessoMinerario UnidadeFederacao            Municipio AreaPoligonal  \
+0       844001/2022          Alagoas  UNIÃO DOS PALMARES         21,54   
+
+  Substancia       UsoSubstancia RegimeDisponibilidade IndicaNominacao  \
+0      AREIA  ConstruÃ§Ã£o civil                   NaN             Sim   
+
+  FaseProcessoMinerario SituacaoProcesso                 SituacaoEstoque  \
+0         Licenciamento            Ativo  NÃ£o apta para Disponibilidade   
+
+  IndicaDisponibilizacaoEdital UltimaSituacaoEdital  
+0                         NÃ£o                  NaN  
+
+
+=== ESTRUTURA APÓS A LIMPEZA PARA VALE DO LÍTIO - STARTMINE ===
+Data do Log: 2026-05-02 15:05:41.117759
+
+--- 1. ALVARÁ DE PESQUISA ---
+           Superintendência     Processo  \
+161  Gerência Regional / MG  832614/2010   
+
+                        Tipo de requerimento               Fase Atual  \
+161  Requerimento de Autorização de Pesquisa  Autorização de Pesquisa   
+
+    CPF/CNPJ do titular                   Titular Municipio(s) Substância(s)  \
+161  00.968.624/0001-05  MINERACAO ATLANTICA LTDA  MINAS NOVAS       GRANITO   
+
+    Tipo(s) de Uso Situação  
+161   Revestimento      Sim  
+
+
+--- 1. PORTARIA DE LAVRA ---
+            Superintendência     Processo  \
+1120  Gerência Regional / MG  806857/1972   
+
+                         Tipo de requerimento          Fase Atual  \
+1120  Requerimento de Autorização de Pesquisa  Concessão de Lavra   
+
+     CPF/CNPJ do titular                                        Titular  \
+1120  16.964.819/0001-09  ARQUEANA EMPREENDIMENTOS E PARTICIPACOES S.A.   
+
+     Municipio(s)                 Substância(s)  \
+1120      ARAÇUAÍ  FELDSPATO, PETALITA, QUARTZO   
+
+                                         Tipo(s) de Uso Situação  
+1120  Demais substâncias, Demais substâncias, Demais...      Sim  
+
+
+--- 2. CFEM ARRECADAÇÃO ---
+     Ano  Mês  Processo  AnoDoProcesso Tipo_PF_PJ        CPF_CNPJ Substância  \
+57  2022    1  833597.0         2006.0         PJ  01969976000130      AREIA   
+
+    UF  CodigoMunicipio      Município QuantidadeComercializada  \
+57  MG          3168606  TEÓFILO OTONI                      105   
+
+   UnidadeDeMedida ValorRecolhido          DataCriacao  
+57             t            125,7  2021-12-31 06:28:00  
+
+
+--- 2. CFEM DISTRIBUIÇÃO ---
+      NúmeroDeDistribuição   Ano  Mês       Ente SiglaEstado  CodigoEnte  \
+1164                   245  2007    2  Município          MG   3168606.0   
+
+           NomeEnte TipoDistribuição Substância TipoAfetamento  \
+1164  TEÓFILO OTONI         Produtor     ARGILA              -   
+
+                      Valor          DataCriacao  
+1164  8,8725000000000000000  2006-12-31 00:00:00  
+
+
+--- 3. SIGBM (BARRAGENS) ---
+     ID                      Nome           Empreendedor        CPF_CNPJ  \
+0  8482  Dique - Pilha de Rejeito  EXTRATIVA MINERAL S/A  17174889000126   
+
+  Nome da mina  UF  Município         Latitude        Longitude  \
+0          NaN  MG  NOVA LIMA  -20°06'36.810''  -43°54'31.680''   
+
+   Posicionamento  ...  \
+0  Sul do Equador  ...   
+
+  Existe documento que ateste a segurança estrutural e a capacidade para contenção de rejeitos da Back Up Dam com ART  \
+0              Não se aplica a esse tipo de barragem                                                                    
+
+  Existe manual de operação da Back Up Dam  \
+0    Não se aplica a esse tipo de barragem   
+
+  A Back up Dam passou por auditoria de terceira parte  \
+0              Não se aplica a esse tipo de barragem     
+
+  A Back Up Dam garante a redução da área da mancha de inundação à jusante  \
+0              Não se aplica a esse tipo de barragem                         
+
+  Tipo de Back Up Dam quanto ao material de construção  \
+0              Não se aplica a esse tipo de barragem     
+
+         Tipo de fundação da Back Up Dam  \
+0  Não se aplica a esse tipo de barragem   
+
+         Vazão de projeto da Back Up Dam  \
+0  Não se aplica a esse tipo de barragem   
+
+       Método construtivo da Back Up Dam  \
+0  Não se aplica a esse tipo de barragem   
+
+      Tipo de auscultação da Back Up Dam Unidade Gestora  
+0  Não se aplica a esse tipo de barragem           CORBO  
+
+[1 rows x 124 columns]
+
+
+--- 4. DÍVIDA ATIVA ---
+      CPF_CNPJ             Interessado  NumeroDoProcesso  AnoDoProcesso  \
+0  ***526098**  LUIZ ARAUJO DOS SANTOS            968065           1993   
+
+                                             Receita       NumeroCDA  \
+0  Multa (Sistema de Autuação)  Taxa Anual por He...  19.016628.2009   
+
+  ValorAtualizado                DataAtualizacao       StatusDivida  
+0        39303.92  2024-08-07 12:42:45.100000000  Credito em Aberto  
+
+
+--- 5. SOPLE (LEILÃO) ---
+  ProcessoMinerario UnidadeFederacao            Municipio AreaPoligonal  \
+0       844001/2022          Alagoas  UNIÃO DOS PALMARES         21,54   
+
+  Substancia       UsoSubstancia RegimeDisponibilidade IndicaNominacao  \
+0      AREIA  ConstruÃ§Ã£o civil                   NaN             Sim   
+
+  FaseProcessoMinerario SituacaoProcesso                 SituacaoEstoque  \
+0         Licenciamento            Ativo  NÃ£o apta para Disponibilidade   
+
+  IndicaDisponibilizacaoEdital UltimaSituacaoEdital  
+0                         NÃ£o                  NaN  
+
+
+
+=== CRUZAMENTO DE GOVERNANÇA: DÍVIDA ATIVA ===
+Empresas analisadas no Vale do Lítio: 597
+Total de registros na Dívida Ativa (Brasil): 81540
+Devedores encontrados operando no Vale: 1853
+Status: ALERTA EMITIDO
+
+=== CRUZAMENTO DE GOVERNANÇA: DÍVIDA ATIVA ===
+Empresas analisadas no Vale do Lítio: 597
+Total de registros na Dívida Ativa (Brasil): 81540
+Devedores encontrados operando no Vale: 1853
+Status: ALERTA EMITIDO
+
+=== CRUZAMENTO DE GOVERNANÇA: DÍVIDA ATIVA ===
+Empresas analisadas no Vale do Lítio: 597
+Total de registros na Dívida Ativa (Brasil): 81540
+Devedores encontrados operando no Vale: 1853
+Status: ALERTA EMITIDO
