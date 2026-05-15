@@ -1,14 +1,19 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import os
 
 # %% Configuração da página
-
 st.set_page_config(page_title="StratMine | Inteligência Mineral", layout="wide")
 
-# --- CARGA DE DADOS (Atualizada para as 7 bases individuais) ---
+# --- DEFINIÇÃO DE CAMINHOS (O segredo para funcionar na nuvem) ---
+# Pega o caminho da pasta onde o app.py está
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# --- CARGA DE DADOS ---
 @st.cache_data
 def load_data():
+    # Usamos o BASE_DIR para o Python saber exatamente onde está a pasta databases
     df_alvara = pd.read_csv(os.path.join(BASE_DIR, 'databases', '1.dashboard_CM_alvara.csv'))
     df_lavra = pd.read_csv(os.path.join(BASE_DIR, 'databases', '1.dashboard_CM_lavra.csv'))
     df_arr = pd.read_csv(os.path.join(BASE_DIR, 'databases', '2.dashboard_cefem_arrecadacao.csv'))
@@ -17,18 +22,8 @@ def load_data():
     
     return df_alvara, df_lavra, df_arr, df_bar, df_div
 
-def load_data():
-    # Carregando as bases geradas no codes.py
-    df_alvara = pd.read_csv('databases/1.dashboard_CM_alvara.csv')
-    df_lavra = pd.read_csv('databases/1.dashboard_CM_lavra.csv')
-    df_arr = pd.read_csv('databases/2.dashboard_cefem_arrecadacao.csv')
-    df_bar = pd.read_csv('databases/3.dashboard_sigbm_barragens.csv')
-    df_div = pd.read_csv('databases/4.dashboard_divida_ativa.csv')
-    
-    return df_alvara, df_lavra, df_arr, df_bar, df_div
-
+# Chamada única da função (Remova a segunda definição de load_data que você tinha)
 df_alvara, df_lavra, df_arr, df_bar, df_div = load_data()
-
 
 # %%
  # --- TÍTULO ---
