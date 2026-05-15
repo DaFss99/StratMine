@@ -6,11 +6,6 @@ import os
 # %% Configuração da página
 st.set_page_config(page_title="StratMine | Inteligência Mineral", layout="wide")
 
-<<<<<<< HEAD
-# --- DEFINIÇÃO DE CAMINHOS ---
-=======
-# --- DEFINIÇÃO DE CAMINHOS (O segredo para funcionar na nuvem) ---
->>>>>>> 0c7f9e15993810a540eb7463929da55c7d9f5446
 # Pega o caminho da pasta onde o app.py está
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
