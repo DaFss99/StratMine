@@ -9,6 +9,15 @@ st.set_page_config(page_title="StratMine | Inteligência Mineral", layout="wide"
 # --- CARGA DE DADOS (Atualizada para as 7 bases individuais) ---
 @st.cache_data
 def load_data():
+    df_alvara = pd.read_csv(os.path.join(BASE_DIR, 'databases', '1.dashboard_CM_alvara.csv'))
+    df_lavra = pd.read_csv(os.path.join(BASE_DIR, 'databases', '1.dashboard_CM_lavra.csv'))
+    df_arr = pd.read_csv(os.path.join(BASE_DIR, 'databases', '2.dashboard_cefem_arrecadacao.csv'))
+    df_bar = pd.read_csv(os.path.join(BASE_DIR, 'databases', '3.dashboard_sigbm_barragens.csv'))
+    df_div = pd.read_csv(os.path.join(BASE_DIR, 'databases', '4.dashboard_divida_ativa.csv'))
+    
+    return df_alvara, df_lavra, df_arr, df_bar, df_div
+
+def load_data():
     # Carregando as bases geradas no codes.py
     df_alvara = pd.read_csv('databases/1.dashboard_CM_alvara.csv')
     df_lavra = pd.read_csv('databases/1.dashboard_CM_lavra.csv')
